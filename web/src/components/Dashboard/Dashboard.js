@@ -18,12 +18,6 @@ const Dashboard = () => {
     };
 
     const [theme, setTheme] = useState("dark");
-    // let switchText = '';
-    // if (theme === "dark") {
-    //     switchText += " dark";
-    //   } else {
-    //     switchText -= " dark";
-    //   }
     
       const changeTheme = (value) => {
         setTheme(value ? "dark" : "light");

@@ -11,19 +11,24 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/plugin-transform-runtime": "^7.16.10",
-    "babel-plugin-istanbul": "^6.1.1",
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.17.10",
+    "@babel/plugin-transform-runtime": "^7.16.10",
     "@babel/preset-env": "^7.17.10",
     "babel": "^6.23.0",
+    "babel-plugin-istanbul": "^6.1.1",
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "helmet": "^5.1.0",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
     "nodemodule": "^0.3.0",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "sequelize": "^6.20.0",
+    "sqlite3": "^5.0.8"
   }
 }

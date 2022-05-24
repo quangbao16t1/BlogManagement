@@ -3,11 +3,21 @@ import cors from "cors";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import connectDb  from "./src/configs/db.config.js";
+import connectDB from "./src/models/index.js";
+import userRouter from "./src/routes/user.routes.js";
 
 dotenv.config();
 
-connectDb;
+try {
+       // connectDB.sequelize.sync();
+       connectDB.sequelize.sync({ force: false })
+              .then(() => {
+                     console.log('yes re-sync done!')
+              })
+       console.log("connect success!!")
+} catch (error) {
+       console.log(error);
+}
 
 
 
@@ -17,9 +27,11 @@ const port = process.env.PORT || 3133;
 app.use(helmet());
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({   
+app.use(bodyParser.urlencoded({
        extended: true
-     }));
+}));
+
+app.use('/', userRouter);
 
 app.get("/", (req, res) => {
        res.json({

@@ -53,6 +53,7 @@ const Footer = () => {
                             </li>
                         </ul>
                     </section>
+                    <div className='footer-line'></div>
                     <div className='footer-middle'>
                         <div className='footer-span1'>
                             <aside className='footer-logo'>
