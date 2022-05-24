@@ -31,7 +31,40 @@ connectDB.comments = CommentModel(sequelize, Sequelize);
 connectDB.rates = RateModel(sequelize, Sequelize);
 connectDB.bookmarks = BookmarkModel(sequelize, Sequelize);
 
-connectDB.users.hasOne(connectDB.roles, {foreinKey: 'roleId'});
-connectDB.roles.belongsTo(connectDB.users);
+//users-roles
+connectDB.users.belongsTo(connectDB.roles);
+connectDB.roles.hasMany(connectDB.users, {foreinKey: 'roleId'} );
+
+//users-posts
+connectDB.posts.belongsTo(connectDB.users);
+connectDB.users.hasMany(connectDB.posts, {foreinKey: 'userId'} );
+
+//comments-users
+connectDB.comments.belongsTo(connectDB.users);
+connectDB.users.hasMany(connectDB.comments, {foreinKey: 'userId'} );
+
+//comments-posts
+connectDB.comments.belongsTo(connectDB.posts);
+connectDB.posts.hasMany(connectDB.comments, {foreinKey: 'postId'} );
+
+//comments-comments
+connectDB.comments.belongsTo(connectDB.comments, {as: 'parent', foreignKey: 'parentId'});
+connectDB.comments.hasMany(connectDB.comments, {as: 'children', foreignKey: 'parentId'} );
+
+//posts-rates
+connectDB.rates.belongsTo(connectDB.posts);
+connectDB.posts.hasMany(connectDB.rates, {foreinKey: 'postId'} );
+
+//rates-users
+connectDB.rates.belongsTo(connectDB.users);
+connectDB.users.hasMany(connectDB.rates, {foreinKey: 'userId'} );
+
+//users-bookmarks
+connectDB.bookmarks.belongsTo(connectDB.users);
+connectDB.users.hasMany(connectDB.bookmarks, {foreinKey: 'userId'} );
+
+//posts-bookmarks
+connectDB.bookmarks.belongsTo(connectDB.posts);
+connectDB.posts.hasMany(connectDB.bookmarks, {foreinKey: 'postId'} );
 
 export default connectDB;

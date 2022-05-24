@@ -14,9 +14,11 @@ const RoleModel = (sequelize, Sequelize) => {
         },
         createAt: {
             type: DataTypes.DATE,
+            default: Date.now(),
         },
         updateAt: {
-            type: DataTypes.DATE
+            type: DataTypes.DATE,
+            default: null
         }
     }, {
         timestamps: false

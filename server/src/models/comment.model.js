@@ -16,6 +16,10 @@ const CommentModel = (sequelize, Sequelize) => {
         postId: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            // references: {
+            //     model: 'comments',
+            //     key: 'id',
+            //   },
         },
         parentId: {
             type: DataTypes.INTEGER,
