@@ -79,7 +79,6 @@ UserController.updateUser = async (req, res) => {
         lastName: req.body.lastName,
         email: req.body.email,
         phoneNumber: req.body.phoneNumber,
-        passwordHash: req.body.passwordHash,
         roleId: req.body.roleId,
         updateAt: Date.now(),
     }
@@ -104,9 +103,9 @@ UserController.updateUser = async (req, res) => {
 UserController.login = async (req, res) => {
 
     const email = req.body.email;
-    const password = req.body.password;
-    await UserService.login(email, password)
-        .then(user => user ? res.json({ success: true, User: user, }) : res.status(400).json({ message: 'Username or password is incorrect' }))
+    const passwordHash = req.body.passwordHash;
+    await UserService.login(email, passwordHash)
+        .then(user => user ? res.json({ success: true, User: user, }) : res.status(400).json({ message: 'Email or password is incorrect' }))
         .catch(error => {
             console.log(error);
         })

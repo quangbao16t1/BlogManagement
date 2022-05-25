@@ -29,7 +29,8 @@ const Users = (sequelize, Sequelize) => {
             type: DataTypes.STRING,
         },
         passwordHash: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING(100),
+            allowNull: false
         },
         roleId: {
             type: DataTypes.INTEGER,

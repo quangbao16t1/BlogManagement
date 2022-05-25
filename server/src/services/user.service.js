@@ -25,12 +25,12 @@ UserService.getUserById = async (userId) => {
 }
 
 UserService.updateUser = async (userId, user) => {
-    const userUpdate = await UserModel.findOne({where: {id: userId}});
+    const userUpdate = await UserModel.findOne({ where: { id: userId } });
 
     if (!userUpdate) throw "User not found!!!";
 
-    if (user.password) {
-        user.password = bcrypt.hashSync(user.password, 8);
+    if (user.passwordHash) {
+        user.passwordHash = bcrypt.hashSync(user.passwordHash, 8);
     }
 
     Object.assign(userUpdate, user);
@@ -39,11 +39,11 @@ UserService.updateUser = async (userId, user) => {
 }
 
 UserService.deleteUser = async (userId) => {
-    const userDelete = await UserModel.findOne({where: {id: userId}});
+    const userDelete = await UserModel.findOne({ where: { id: userId } });
 
-    if(!userDelete) throw "User not found!!!";
+    if (!userDelete) throw "User not found!!!";
 
-    return await UserModel.destroy({where: {id: userId}});
+    return await UserModel.destroy({ where: { id: userId } });
 }
 
 UserService.createUsers = async (user) => {
@@ -51,20 +51,25 @@ UserService.createUsers = async (user) => {
         throw `Email  ${user.email} is already taken`;
     }
 
-    const userCreate = new UserModel(user);
+    const userCreate = new UserModel();
 
-    if (user.password) {
-        userCreate.password = bcrypt.hashSync(user.password, 8);
+    Object.assign(userCreate, user);
+
+    if (user.passwordHash) {
+        userCreate.passwordHash = await bcrypt.hashSync(user.passwordHash, 8);
     }
 
     await userCreate.save();
 }
 
 UserService.login = async (email, password) => {
+
     const user = await UserModel.findOne({ where: { email: email } });
-    console.log(user.password);
+
+    console.log(user.passwordHash);
     console.log(user);
-    if (user && bcrypt.compareSync(password, user.password)) {
+    
+    if (user && bcrypt.compareSync(password, user.passwordHash)) {
         const token = jwt.sign({ sub: user._id }, Auth.secret, { expiresIn: '7d' });
         return {
             ...user.toJSON(),
