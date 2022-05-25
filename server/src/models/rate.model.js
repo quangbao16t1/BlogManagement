@@ -27,6 +27,8 @@ const RateModel = (sequelize, Sequelize) => {
         updateAt: {
             type: DataTypes.DATE
         }
+    },{
+        timestamps: false
     });
     return Rates;
 }

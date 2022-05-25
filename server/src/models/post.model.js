@@ -10,7 +10,7 @@ const PostModel = (sequelize, Sequelize) => {
         },
         userId: {
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: false,
         },
         title: {
             type: DataTypes.STRING,
@@ -25,10 +25,15 @@ const PostModel = (sequelize, Sequelize) => {
         },
         createAt: {
             type: DataTypes.DATE,
+            allowNull: false,
+            default: Date.now(),
         },
         updateAt: {
-            type: DataTypes.DATE
+            type: DataTypes.DATE,
+            default: null
         }
+    }, {
+        timestamps: false
     });
     return Posts;
 }

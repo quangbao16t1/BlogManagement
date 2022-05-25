@@ -18,6 +18,10 @@ const Users = (sequelize, Sequelize) => {
             type: DataTypes.STRING(45),
             allowNull: false
         },
+        gender: {
+            type: DataTypes.STRING(15),
+            allowNull: false
+        },
         email: {
             type: DataTypes.STRING,
             unique: true,
@@ -27,6 +31,9 @@ const Users = (sequelize, Sequelize) => {
         },
         phoneNumber: {
             type: DataTypes.STRING,
+        },
+        address: {
+            type: DataTypes.STRING(45),
         },
         passwordHash: {
             type: DataTypes.STRING(100),

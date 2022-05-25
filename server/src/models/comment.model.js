@@ -23,7 +23,7 @@ const CommentModel = (sequelize, Sequelize) => {
         },
         parentId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
         },
         comment: {
             type: DataTypes.STRING,
@@ -39,6 +39,8 @@ const CommentModel = (sequelize, Sequelize) => {
         updateAt: {
             type: DataTypes.DATE
         }
+    }, {
+        timestamps: false
     });
 
     return Comments;

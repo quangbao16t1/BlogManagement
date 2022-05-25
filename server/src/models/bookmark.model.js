@@ -27,6 +27,8 @@ const BookmarkModel = (sequelize, Sequelize) => {
         updateAt: {
             type: DataTypes.DATE
         }
+    }, {
+        timestamps: false
     });
 
     return Bookmarks;

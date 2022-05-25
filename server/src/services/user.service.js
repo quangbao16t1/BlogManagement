@@ -47,6 +47,7 @@ UserService.deleteUser = async (userId) => {
 }
 
 UserService.createUsers = async (user) => {
+    
     if (await UserModel.findOne({ where: { email: user.email } })) {
         throw `Email  ${user.email} is already taken`;
     }
@@ -68,7 +69,7 @@ UserService.login = async (email, password) => {
 
     console.log(user.passwordHash);
     console.log(user);
-    
+
     if (user && bcrypt.compareSync(password, user.passwordHash)) {
         const token = jwt.sign({ sub: user._id }, Auth.secret, { expiresIn: '7d' });
         return {

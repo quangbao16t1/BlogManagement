@@ -1,4 +1,3 @@
-import connectDB from "../models/index.js";
 import UserService from "../services/user.service.js";
 
 const UserController = {};
@@ -52,9 +51,11 @@ UserController.createUser = async (req, res) => {
     const user = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
+        gender: req.body.gender,
         email: req.body.email,
         phoneNumber: req.body.phoneNumber,
         passwordHash: req.body.passwordHash,
+        address: req.body.address,
         roleId: req.body.roleId,
         createAt: Date.now(),
     }
@@ -77,8 +78,10 @@ UserController.updateUser = async (req, res) => {
     const userUpdate = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
+        gender: req.body.gender,
         email: req.body.email,
         phoneNumber: req.body.phoneNumber,
+        address: req.body.address,
         roleId: req.body.roleId,
         updateAt: Date.now(),
     }
