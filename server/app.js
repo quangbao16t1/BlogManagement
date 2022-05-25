@@ -7,6 +7,8 @@ import connectDB from "./src/models/index.js";
 import userRouter from "./src/routes/user.routes.js";
 import postRouter from "./src/routes/post.routes.js";
 import rateRouter from "./src/routes/rate.routes.js";
+import bookmarkRouter from "./src/routes/bookmark.routes.js";
+import commentRouter from "./src/routes/comment.routes.js";
 
 dotenv.config();
 
@@ -36,6 +38,8 @@ app.use(bodyParser.urlencoded({
 app.use('/', userRouter);
 app.use('/', postRouter);
 app.use('/', rateRouter);
+app.use('/', bookmarkRouter);
+app.use('/', commentRouter);
 
 app.get("/", (req, res) => {
        res.json({

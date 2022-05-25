@@ -1,16 +1,18 @@
 import Message from '../commons/message.js';
-import RateRepo from '../repositories/rate.repository.js';
+import CommentRepo from '../repositories/comment.repository.js';
 
-const RateController = {};
+const CommentController = {};
 
-RateController.createRate = async (req, res) => {
-    const rate = {
+CommentController.createComment = async (req, res) => {
+    const cmt = {
         userId: req.body.userId,
         postId: req.body.postId,
-        rate: req.body.rate,
+        parentId: req.body.parentId,
+        comment: req.body.comment,
+        publish: req.body.publish,
         createAt: Date.now(),
     }
-    await RateRepo.createRate(rate)
+    await CommentRepo.createComment(cmt)
         .then(() => {
             res.status(201).json({
                 success: true,
@@ -25,12 +27,12 @@ RateController.createRate = async (req, res) => {
         })
 }
 
-RateController.getAllRates = async (req, res) => {
+CommentController.getAllComments = async (req, res) => {
     try {
-        const rates = await RateRepo.getAllRates;
+        const cmts = await CommentRepo.getAllComments;
         res.status(200).json({
             success: true,
-            Rates: rates
+            Comments: cmts
         })
     } catch (error) {
         res.status(500).json({
@@ -39,10 +41,10 @@ RateController.getAllRates = async (req, res) => {
     }
 }
 
-RateController.deleteRate = async (req, res) => {
+CommentController.deleteComment = async (req, res) => {
     try {
         const id = req.params.id;
-        const result = await RateRepo.deleteRate(id);
+        const result = await CommentRepo.deleteComment(id);
         res.status(200).json({
             success: true,
             message: Message.delete,
@@ -54,13 +56,13 @@ RateController.deleteRate = async (req, res) => {
     }
 }
 
-RateController.getRateById = async (req, res) => {
+CommentController.getCommentById = async (req, res) => {
     try {
         const id = req.params.id;
-        const result = await RateRepo.getRateById(id);
+        const result = await CommentRepo.getCommentById(id);
         res.status(200).json({
             success: true,
-            Rate: result
+            Comment: result
         })
     } catch (error) {
         res.status(404).json({
@@ -69,17 +71,19 @@ RateController.getRateById = async (req, res) => {
     }
 }
 
-RateController.updateRate = async (req, res) => {
-    const rateUpdate = {
+CommentController.updateComment = async (req, res) => {
+    const cmtUpdate = {
         userId: req.body.userId,
         postId: req.body.postId,
-        rate: req.body.rate,
+        parentId: req.body.parentId,
+        comment: req.body.comment,
+        publish: req.body.publish,
         updateAt: Date.now(),
     }
 
     const id = req.params.id;
 
-    await RateRepo.updateRate(id, rateUpdate)
+    await CommentRepo.updateComment(id, cmtUpdate)
         .then(() => {
             res.status(200).json({
                 success: true,
@@ -95,4 +99,4 @@ RateController.updateRate = async (req, res) => {
 }
 
 
-export default RateController;
+export default CommentController;

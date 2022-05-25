@@ -1,16 +1,16 @@
 import Message from '../commons/message.js';
-import RateRepo from '../repositories/rate.repository.js';
+import BookmarkRepo from '../repositories/bookmark.repository.js';
 
-const RateController = {};
+const BookmarkController = {};
 
-RateController.createRate = async (req, res) => {
-    const rate = {
+BookmarkController.createBookmark = async (req, res) => {
+    const bookmark = {
         userId: req.body.userId,
         postId: req.body.postId,
-        rate: req.body.rate,
+        note: req.body.note,
         createAt: Date.now(),
     }
-    await RateRepo.createRate(rate)
+    await BookmarkRepo.createBookmark(bookmark)
         .then(() => {
             res.status(201).json({
                 success: true,
@@ -25,12 +25,12 @@ RateController.createRate = async (req, res) => {
         })
 }
 
-RateController.getAllRates = async (req, res) => {
+BookmarkController.getAllBookmarks = async (req, res) => {
     try {
-        const rates = await RateRepo.getAllRates;
+        const bookmarks = await BookmarkRepo.getAllBookmarks;
         res.status(200).json({
             success: true,
-            Rates: rates
+            Bookmarks: bookmarks
         })
     } catch (error) {
         res.status(500).json({
@@ -39,10 +39,10 @@ RateController.getAllRates = async (req, res) => {
     }
 }
 
-RateController.deleteRate = async (req, res) => {
+BookmarkController.deleteBookmark = async (req, res) => {
     try {
         const id = req.params.id;
-        const result = await RateRepo.deleteRate(id);
+        const result = await BookmarkRepo.deleteBookmark(id);
         res.status(200).json({
             success: true,
             message: Message.delete,
@@ -54,13 +54,13 @@ RateController.deleteRate = async (req, res) => {
     }
 }
 
-RateController.getRateById = async (req, res) => {
+BookmarkController.getBookmarkById = async (req, res) => {
     try {
         const id = req.params.id;
-        const result = await RateRepo.getRateById(id);
+        const result = await BookmarkRepo.getBookmarkById(id);
         res.status(200).json({
             success: true,
-            Rate: result
+            Bookmark: result
         })
     } catch (error) {
         res.status(404).json({
@@ -69,17 +69,17 @@ RateController.getRateById = async (req, res) => {
     }
 }
 
-RateController.updateRate = async (req, res) => {
-    const rateUpdate = {
+BookmarkController.updateBookmark = async (req, res) => {
+    const bookmarkUpdate = {
         userId: req.body.userId,
         postId: req.body.postId,
-        rate: req.body.rate,
+        note: req.body.note,
         updateAt: Date.now(),
     }
 
     const id = req.params.id;
 
-    await RateRepo.updateRate(id, rateUpdate)
+    await BookmarkRepo.updateBookmark(id, bookmarkUpdate)
         .then(() => {
             res.status(200).json({
                 success: true,
@@ -95,4 +95,4 @@ RateController.updateRate = async (req, res) => {
 }
 
 
-export default RateController;
+export default BookmarkController;

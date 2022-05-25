@@ -1,3 +1,4 @@
+import Message from "../commons/message.js";
 import UserService from "../services/user.service.js";
 
 const UserController = {};
@@ -22,7 +23,7 @@ UserController.deleteUser = async (req, res) => {
         const result = await UserService.deleteUser(id);
         res.status(200).json({
             success: true,
-            message: "DELETE successfully!!!!!",
+            message: Message.delete,
         }) 
     } catch (error) {
         res.status(404).json({
@@ -37,11 +38,11 @@ UserController.getUserById = async (req, res) => {
         const result = await UserService.getUserById(id);
         res.status(200).json({
             success: true,
-            message: "successfully!!!!!",
             User: result
         }) 
     } catch (error) {
         res.status(404).json({
+            message: Message.notFound(id),
             error: error.message
         })
     }
@@ -63,12 +64,12 @@ UserController.createUser = async (req, res) => {
         .then(() => {
             res.status(201).json({
                 success: true,
-                message: `Create User successfully!!!`,
+                message: Message.create,
             })
         })
         .catch((error) => {
-            res.status(500).json({
-                message: "Can't create User!!!",
+            res.status(400).json({
+                message: Message.unCreate,
                 error: error.message
             })
         })
@@ -92,12 +93,12 @@ UserController.updateUser = async (req, res) => {
         .then(() => {
             res.status(200).json({
                 success: true,
-                message: `Update User successfully!!!`,
+                message: Message.update,
             })
         })
         .catch((error) => {
             res.status(500).json({
-                message: "Can't Update User!!!",
+                message: Message.unUpdate,
                 error: error.message
             })
         })
@@ -108,7 +109,7 @@ UserController.login = async (req, res) => {
     const email = req.body.email;
     const passwordHash = req.body.passwordHash;
     await UserService.login(email, passwordHash)
-        .then(user => user ? res.json({ success: true, User: user, }) : res.status(400).json({ message: 'Email or password is incorrect' }))
+        .then(user => user ? res.json({ success: true, User: user, }) : res.status(400).json({ message: Message.loginValid }))
         .catch(error => {
             console.log(error);
         })

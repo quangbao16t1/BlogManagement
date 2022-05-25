@@ -1,3 +1,4 @@
+import Message from "../commons/message.js";
 import PostService from "../services/post.service.js";
 
 
@@ -23,7 +24,7 @@ PostController.deletePost = async (req, res) => {
         const result = await PostService.deletePost(id);
         res.status(200).json({
             success: true,
-            message: "DELETE successfully!!!!!",
+            message: Message.delete,
         })
     } catch (error) {
         res.status(404).json({
@@ -38,7 +39,6 @@ PostController.getPostById = async (req, res) => {
         const result = await PostService.getPostById(id);
         res.status(200).json({
             success: true,
-            message: "successfully!!!!!",
             Post: result
         })
     } catch (error) {
@@ -60,12 +60,12 @@ PostController.createPost = async (req, res) => {
         .then(() => {
             res.status(201).json({
                 success: true,
-                message: `Create Post successfully!!!`,
+                message: Message.create,
             })
         })
         .catch((error) => {
             res.status(500).json({
-                message: "Can't create Post!!!",
+                message: Message.unCreate,
                 error: error.message
             })
         })
@@ -86,12 +86,12 @@ PostController.updatePost = async (req, res) => {
         .then(() => {
             res.status(200).json({
                 success: true,
-                message: `Update Post successfully!!!`,
+                message: Message.update,
             })
         })
         .catch((error) => {
             res.status(500).json({
-                message: "Can't Update Post!!!",
+                message: Message.unUpdate,
                 error: error.message
             })
         })
