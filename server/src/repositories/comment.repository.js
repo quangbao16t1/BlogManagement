@@ -12,4 +12,6 @@ CommentRepo.updateComment = (id, cmt) => CommentService.updateCommnet(id, cmt);
 
 CommentRepo.deleteComment = (id) => CommentService.deleteComment(id);
 
+CommentRepo.getCmtChildren = (parenId) => CommentService.getCmtChidren(parenId);
+
 export default CommentRepo;

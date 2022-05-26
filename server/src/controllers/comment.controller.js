@@ -72,4 +72,16 @@ CommentController.updateComment = async (req, res) => {
         })
 }
 
+CommentController.getCmtChildren = async (req, res) => {
+    try {
+        const id = req.params.parentId;
+
+        const result = await CommentRepo.getCmtChildren(id);
+        RES.success(res, result, Message.success);
+    } catch (error) {
+        RES.notFound(res, error, Message.notFound);
+    }
+}
+
+
 export default CommentController;

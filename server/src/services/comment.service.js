@@ -51,6 +51,15 @@ CommentService.createComment = async (cmt) => {
     await commentCreate.save();
 }
 
-// CommentService.get
+CommentService.getCmtChidren = async (parentId) => {
+    return await CommentModel.findAll({
+        where: {parentId: parentId},
+        include: [{
+            model: connectDB.users
+        }, {
+            model: connectDB.posts
+        }]
+    })
+}
 
 export default CommentService;
