@@ -8,7 +8,9 @@ Message.unCreate = "Can't create!!!"
 Message.unUpdate = "Can't update!!!"
 Message.unDelete = "Can't delete!!!"
 
-Message.notFound = (message) => {return `${message} NOT FOUND!!!`};
+Message.notFound =  `NOT FOUND!!!`;
 Message.loginValid = 'Email or password is incorrect';
+
+Message.success = "GET SUCCESSFULLY!!!"
 
 export default Message;

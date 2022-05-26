@@ -51,4 +51,6 @@ CommentService.createComment = async (cmt) => {
     await commentCreate.save();
 }
 
+// CommentService.get
+
 export default CommentService;

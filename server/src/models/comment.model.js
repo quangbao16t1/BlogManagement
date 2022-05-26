@@ -30,7 +30,7 @@ const CommentModel = (sequelize, Sequelize) => {
             allowNull: false
         },
         publish: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         createAt: {

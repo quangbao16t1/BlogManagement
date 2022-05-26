@@ -8,7 +8,7 @@ CommentRepo.getCommentById = (id) => CommentService.getCommentById(id);
 
 CommentRepo.createComment = (cmt) => CommentService.createComment(cmt);
 
-CommentRepo.updateCommnet = (id, cmt) => CommentService.updateCommnet(id, cmt);
+CommentRepo.updateComment = (id, cmt) => CommentService.updateCommnet(id, cmt);
 
 CommentRepo.deleteComment = (id) => CommentService.deleteComment(id);
 

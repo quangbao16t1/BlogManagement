@@ -10,6 +10,7 @@ PostService.getAllPosts = async () => {
     return await PostModel.findAll({
         include: [{
             model: connectDB.users,
+            // attributes: ['firstName', 'lastName']
         }]
     });
 }

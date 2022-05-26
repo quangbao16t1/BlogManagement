@@ -1,4 +1,5 @@
 import Message from '../commons/message.js';
+import RES from '../commons/status.js';
 import CommentRepo from '../repositories/comment.repository.js';
 
 const CommentController = {};
@@ -14,30 +15,19 @@ CommentController.createComment = async (req, res) => {
     }
     await CommentRepo.createComment(cmt)
         .then(() => {
-            res.status(201).json({
-                success: true,
-                message: Message.create,
-            })
+            RES.created(res, cmt, Message.create);
         })
         .catch((error) => {
-            res.status(500).json({
-                message: Message.unCreate,
-                error: error.message
-            })
+            RES.internal(res, error, Message.unCreate);
         })
 }
 
 CommentController.getAllComments = async (req, res) => {
     try {
         const cmts = await CommentRepo.getAllComments;
-        res.status(200).json({
-            success: true,
-            Comments: cmts
-        })
+        RES.success(res, cmts, Message.success);
     } catch (error) {
-        res.status(500).json({
-            error: error.message
-        })
+        RES.notFound(res, error, Message.notFound);
     }
 }
 
@@ -45,14 +35,9 @@ CommentController.deleteComment = async (req, res) => {
     try {
         const id = req.params.id;
         const result = await CommentRepo.deleteComment(id);
-        res.status(200).json({
-            success: true,
-            message: Message.delete,
-        })
+        RES.success(res, result, Message.delete);
     } catch (error) {
-        res.status(404).json({
-            error: error.message
-        })
+        RES.notFound(res, error, Message.notFound);
     }
 }
 
@@ -60,22 +45,17 @@ CommentController.getCommentById = async (req, res) => {
     try {
         const id = req.params.id;
         const result = await CommentRepo.getCommentById(id);
-        res.status(200).json({
-            success: true,
-            Comment: result
-        })
+        RES.success(res, result, Message.success);
     } catch (error) {
-        res.status(404).json({
-            error: error.message
-        })
+        RES.notFound(res, error, Message.notFound);
     }
 }
 
 CommentController.updateComment = async (req, res) => {
     const cmtUpdate = {
-        userId: req.body.userId,
-        postId: req.body.postId,
-        parentId: req.body.parentId,
+        // userId: req.body.userId,
+        // postId: req.body.postId,
+        // parentId: req.body.parentId,
         comment: req.body.comment,
         publish: req.body.publish,
         updateAt: Date.now(),
@@ -85,18 +65,11 @@ CommentController.updateComment = async (req, res) => {
 
     await CommentRepo.updateComment(id, cmtUpdate)
         .then(() => {
-            res.status(200).json({
-                success: true,
-                message: Message.update,
-            })
+            RES.updated(res, Message.update);
         })
         .catch((error) => {
-            res.status(500).json({
-                message: Message.unUpdate,
-                error: error.message
-            })
+            RES.internal(res, error, Message.unUpdate);
         })
 }
-
 
 export default CommentController;

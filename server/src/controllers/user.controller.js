@@ -1,4 +1,5 @@
 import Message from "../commons/message.js";
+import RES from "../commons/status.js";
 import UserService from "../services/user.service.js";
 
 const UserController = {};
@@ -6,14 +7,16 @@ const UserController = {};
 UserController.getAllUsers = async (req, res) => {
     try {
         const users = await UserService.getAllUsers();
-        res.status(200).json({
-            success: true,
-            Users: users
-        })
+        // res.status(200).json({
+        //     success: true,
+        //     Users: users
+        // })
+        RES.success(res, users, Message.success);
     } catch (error) {
-        res.status(500).json({
-            error: error.message
-        })
+        // res.status(500).json({
+        //     error: error.message
+        // })
+        RES.internal(res, error, Message.notFound)
     }
 }
 
@@ -21,14 +24,13 @@ UserController.deleteUser = async (req, res) => {
     try {
         const id = req.params.id;
         const result = await UserService.deleteUser(id);
-        res.status(200).json({
-            success: true,
-            message: Message.delete,
-        }) 
+        // res.status(200).json({
+        //     success: true,
+        //     message: Message.delete,
+        // }) 
+        RES.success(res, result, Message.delete);
     } catch (error) {
-        res.status(404).json({
-            error: error.message
-        })
+        RES.notFound(res, error, Message.unDelete);
     }
 }
 
@@ -36,15 +38,9 @@ UserController.getUserById = async (req, res) => {
     try {
         const id = req.params.id;
         const result = await UserService.getUserById(id);
-        res.status(200).json({
-            success: true,
-            User: result
-        }) 
+        RES.success(res, result, Message.success);
     } catch (error) {
-        res.status(404).json({
-            message: Message.notFound(id),
-            error: error.message
-        })
+        RES.notFound(res, error, Message.notFound);
     }
 }
 
@@ -62,16 +58,10 @@ UserController.createUser = async (req, res) => {
     }
     await UserService.createUsers(user)
         .then(() => {
-            res.status(201).json({
-                success: true,
-                message: Message.create,
-            })
+            RES.created(res, user, Message.create);
         })
         .catch((error) => {
-            res.status(400).json({
-                message: Message.unCreate,
-                error: error.message
-            })
+            RES.internal(res, error, Message.unCreate);
         })
 }
 
@@ -91,16 +81,10 @@ UserController.updateUser = async (req, res) => {
 
     await UserService.updateUser(id, userUpdate)
         .then(() => {
-            res.status(200).json({
-                success: true,
-                message: Message.update,
-            })
+            RES.updated(res, Message.unCreate);
         })
         .catch((error) => {
-            res.status(500).json({
-                message: Message.unUpdate,
-                error: error.message
-            })
+            RES.internal(res, error, Message.unUpdate);
         })
 }
 
