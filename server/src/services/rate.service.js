@@ -51,4 +51,17 @@ RateService.createRate = async (rate) => {
     await rateCreate.save();
 }
 
+RateService.getRateByPostId = async (postId) => {
+    
+    const rates = await RateModel.findAll({ where: {postId: postId}});
+    
+    let sum = 0;
+    const result = rates.map((rate) => {
+        sum += rate.rate;
+    })
+
+    return sum/(rates.length);
+   
+}
+
 export default RateService;

@@ -1,4 +1,5 @@
 import Message from '../commons/message.js';
+import RES from '../commons/status.js';
 import RateRepo from '../repositories/rate.repository.js';
 
 const RateController = {};
@@ -94,5 +95,15 @@ RateController.updateRate = async (req, res) => {
         })
 }
 
+RateController.getRateByPostId = async (req, res) => {
+    try {
+        const id = req.params.postId;
+
+        const result = await RateRepo.getRateByPostId(id);
+        RES.success(res, result, Message.success);
+    } catch (error) {
+        RES.notFound(res, error, Message.notFound);
+    }
+}
 
 export default RateController;

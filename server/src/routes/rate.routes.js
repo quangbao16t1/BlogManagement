@@ -8,6 +8,6 @@ rateRouter.delete('/rate/:id', RateController.deleteRate);
 rateRouter.get('/rate/:id', RateController.getRateById);
 rateRouter.put('/rate/:id', RateController.updateRate);
 rateRouter.get('/rate', RateController.getAllRates);
-
+rateRouter.get('/rate/count/:postId', RateController.getRateByPostId);
 
 export default rateRouter;

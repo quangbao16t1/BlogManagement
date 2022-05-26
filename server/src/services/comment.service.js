@@ -53,11 +53,21 @@ CommentService.createComment = async (cmt) => {
 
 CommentService.getCmtChidren = async (parentId) => {
     return await CommentModel.findAll({
-        where: {parentId: parentId},
+        where: { parentId: parentId },
         include: [{
             model: connectDB.users
         }, {
             model: connectDB.posts
+        }]
+    })
+}
+
+CommentService.getCmtByPostId = async (postId) => {
+    const cmts = await CommentModel.findAll({
+        where: { postId: postId },
+        include: [{
+            model: connectDB.users,
+            attributes: ['firstName', 'lastName']
         }]
     })
 }
