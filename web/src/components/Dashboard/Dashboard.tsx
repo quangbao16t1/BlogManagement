@@ -9,6 +9,7 @@ import {
     UserOutlined,
     ShopOutlined,
 } from '@ant-design/icons';
+
 const { Header, Footer, Content, Sider } = Layout;
 
 const Dashboard = () => {
@@ -17,9 +18,9 @@ const Dashboard = () => {
         setCollapsed(!collapsed);
     };
 
-    const [theme, setTheme] = useState("dark");
+    const [theme, setTheme] = useState<any>("dark");
     
-      const changeTheme = (value) => {
+      const changeTheme = (value: any) => {
         setTheme(value ? "dark" : "light");
       };
     return (

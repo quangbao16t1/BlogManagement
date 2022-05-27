@@ -84,7 +84,9 @@ const Footer = () => {
                             </aside>
                         </div>
                     </div>
-
+                    <div className="footer-copy"> 
+                       <p> Designed by <a href='https://www.webico.vn/>WEBICO.VN' /></p>
+                    </div>
                 </Footer>
             </Layout>
         </>

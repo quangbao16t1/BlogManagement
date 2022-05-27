@@ -1,0 +1,13 @@
+body {
+    box-sizing: border-box;
+    margin: 0;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    min-height: 50%;
+    background-color: rgb(141, 134, 134);
+}
+
