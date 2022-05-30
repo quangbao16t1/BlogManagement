@@ -25,7 +25,7 @@ interface EditorProps {
     value: string;
 }
 
-    const CommentView = () => {
+const CommentView = () => {
     const [comments, setComments] = useState<CommentItem[]>([]);
     const [submitting, setSubmitting] = useState(false);
     const [value, setValue] = useState('');
@@ -39,11 +39,9 @@ interface EditorProps {
             dataSource={comments}
             header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
             itemLayout="horizontal"
-            renderItem={props => <Comment  {...props} />}
+            renderItem={props => <Comment actions={actions} {...props} />}
         />
     );
-
-
 
     const like = () => {
         setLikes(1);
@@ -100,7 +98,7 @@ interface EditorProps {
                 {
                     author: 'Han Solo',
                     avatar: 'https://joeschmoe.io/api/v1/random',
-                    content: <p>{value}</p>,
+                    content: <p style={{color:"black"}}>{value}</p>,
                     datetime: moment().fromNow(),
                 },
             ]);
