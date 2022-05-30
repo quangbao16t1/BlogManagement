@@ -71,7 +71,7 @@ UserService.login = async (email, password) => {
     console.log(user);
 
     if (user && bcrypt.compareSync(password, user.passwordHash)) {
-        const token = jwt.sign({ sub: user._id }, Auth.secret, { expiresIn: '7d' });
+        const token = jwt.sign({ sub: user.id }, Auth.secret, { expiresIn: '7d' });
         return {
             ...user.toJSON(),
             token
