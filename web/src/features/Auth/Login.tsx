@@ -1,5 +1,11 @@
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Row } from "antd";
+import {
+    FacebookOutlined,
+    GithubOutlined,
+    GoogleOutlined,
+    LockOutlined,
+    UserOutlined
+} from "@ant-design/icons";
+import { Button, Checkbox, Form, Input } from "antd";
 import './Login.css'
 
 const Login = () => {
@@ -10,6 +16,7 @@ const Login = () => {
     return (
         <body>
             <div className="container">
+                <h1>Login</h1>
                 <Form
                     name="formLogin"
                     className="login-form"
@@ -18,20 +25,20 @@ const Login = () => {
                     }}
                     onFinish={login}
                 >
-                    <Row >
-                        <Form.Item
-                            name="username"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Username!',
-                                },
-                            ]}
-                        >
-                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-                        </Form.Item>
-                    </Row>
                     <Form.Item
+                        className="form-item"
+                        name="email"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your Username!',
+                            },
+                        ]}
+                    >
+                        <Input className="input-filed" type='email' prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Enter your email" />
+                    </Form.Item>
+                    <Form.Item
+                        className="form-item"
                         name="password"
                         rules={[
                             {
@@ -41,14 +48,15 @@ const Login = () => {
                         ]}
                     >
                         <Input
+                            className="input-filed"
                             prefix={<LockOutlined className="site-form-item-icon" />}
                             type="password"
-                            placeholder="Password"
+                            placeholder="Enter your password"
                         />
                     </Form.Item>
                     <Form.Item>
                         <Form.Item name="remember" valuePropName="checked" noStyle>
-                            <Checkbox>Remember me</Checkbox>
+                            <Checkbox style={{ color: 'white' }}>Remember me</Checkbox>
                         </Form.Item>
 
                         <a className="login-form-forgot" href="">
@@ -60,9 +68,14 @@ const Login = () => {
                         <Button type="primary" htmlType="submit" className="login-form-button">
                             Log in
                         </Button>
-                        Or <a href="">register now!</a>
+                        <a href=""> Or register now!</a>
                     </Form.Item>
                 </Form>
+                <div className="iconGroup">
+                    <FacebookOutlined type="link" className="icon-login" />
+                    <GithubOutlined className="icon-login" />
+                    <GoogleOutlined className="icon-login" />
+                </div>
             </div>
         </body>
     );
