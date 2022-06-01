@@ -13,30 +13,19 @@ RateController.createRate = async (req, res) => {
     }
     await RateRepo.createRate(rate)
         .then(() => {
-            res.status(201).json({
-                success: true,
-                message: Message.create,
-            })
+            RES.created(res, rate, Message.create);
         })
         .catch((error) => {
-            res.status(500).json({
-                message: Message.unCreate,
-                error: error.message
-            })
+            RES.internal(res, Message.unCreate);
         })
 }
 
 RateController.getAllRates = async (req, res) => {
     try {
         const rates = await RateRepo.getAllRates;
-        res.status(200).json({
-            success: true,
-            Rates: rates
-        })
+        RES.success(res, rates, Message.success);
     } catch (error) {
-        res.status(500).json({
-            error: error.message
-        })
+        RES.internal(res, Message.notFound)
     }
 }
 
@@ -44,14 +33,9 @@ RateController.deleteRate = async (req, res) => {
     try {
         const id = req.params.id;
         const result = await RateRepo.deleteRate(id);
-        res.status(200).json({
-            success: true,
-            message: Message.delete,
-        })
+        RES.success(res, result, Message.delete)
     } catch (error) {
-        res.status(404).json({
-            error: error.message
-        })
+        RES.notFound(res, Message.unDelete)
     }
 }
 
@@ -59,14 +43,9 @@ RateController.getRateById = async (req, res) => {
     try {
         const id = req.params.id;
         const result = await RateRepo.getRateById(id);
-        res.status(200).json({
-            success: true,
-            Rate: result
-        })
+        RES.success(res, result, Message.success)
     } catch (error) {
-        res.status(404).json({
-            error: error.message
-        })
+        RES.notFound(res, Message.notFound)
     }
 }
 
@@ -82,16 +61,10 @@ RateController.updateRate = async (req, res) => {
 
     await RateRepo.updateRate(id, rateUpdate)
         .then(() => {
-            res.status(200).json({
-                success: true,
-                message: Message.update,
-            })
+            RES.updated(res, Message.update)
         })
         .catch((error) => {
-            res.status(500).json({
-                message: Message.unUpdate,
-                error: error.message
-            })
+            RES.internal(res, Message.unUpdate)
         })
 }
 
