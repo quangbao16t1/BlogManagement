@@ -1,8 +1,10 @@
 import { Button, Checkbox, Col, Form, Input, Row, Select } from "antd";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import './Register.css'
 
 const Register = () => {
+    const navigate = useNavigate();
     const [form] = Form.useForm();
     const { Option } = Select;
 
@@ -171,9 +173,6 @@ const Register = () => {
                         <Input className="input-filed" />
                     </Form.Item>
 
-
-
-
                     <Form.Item label="Gender" required={true} className="form-item-name"  >
                         <Row gutter={8}>
                             <Col span={10}>
@@ -215,7 +214,7 @@ const Register = () => {
                     <Button type="primary" htmlType="submit">
                         Register
                     </Button>
-                    <Button type="primary"  danger>
+                    <Button type="primary" onClick={() => navigate('/login')} danger>
                         Cancel
                     </Button>
                 </div>
