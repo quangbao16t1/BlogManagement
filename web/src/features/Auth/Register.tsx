@@ -1,14 +1,20 @@
-import { Button, Checkbox, Col, Form, Input, Row, Select } from "antd";
-import { useState } from "react";
+import { Button, Col, Form, Input, Row, Select } from "antd";
+import { useAppDispatch } from "app/hook";
 import { useNavigate } from "react-router-dom";
+import { register } from "./authSlice";
 import './Register.css'
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
     const navigate = useNavigate();
-    const [form] = Form.useForm();
     const { Option } = Select;
 
-    const register = () => {
+    // const dispatch = useAppDispatch();
+
+    const handelSubmit = (value: any) => {
+   
+            console.log(value)
 
     }
     const formItemLayout = {
@@ -41,17 +47,20 @@ const Register = () => {
             },
         },
     };
+
+    const [form] = Form.useForm();
+
     return (
         <body>
             <div className="container">
                 <h1>Register</h1>
                 <Form
                     name="formLogin"
-                    {...formItemLayout}
                     form={form}
+                    {...formItemLayout}
                     className="login-form"
                     scrollToFirstError
-                    onFinish={register}
+                    onFinish={handelSubmit}
                 >
                     <Form.Item label="First Name" required={true} className="form-item-name"  >
                         <Row gutter={8}>
@@ -106,7 +115,7 @@ const Register = () => {
 
                     <Form.Item
                         className="form-item"
-                        name="passwordHast"
+                        name="passwordHash"
                         label="Password"
                         rules={[
                             {
@@ -123,7 +132,7 @@ const Register = () => {
                         className="form-item"
                         name="confirm"
                         label="Confirm Password"
-                        dependencies={['password']}
+                        dependencies={['passwordHash']}
                         hasFeedback
                         rules={[
                             {
@@ -132,7 +141,7 @@ const Register = () => {
                             },
                             ({ getFieldValue }) => ({
                                 validator(_, value) {
-                                    if (!value || getFieldValue('password') === value) {
+                                    if (!value || getFieldValue('passwordHash') === value) {
                                         return Promise.resolve();
                                     }
 
@@ -211,7 +220,7 @@ const Register = () => {
                     </Form.Item>
                 </Form>
                 <div className="btn-register">
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" onClick={() => handelSubmit}>
                         Register
                     </Button>
                     <Button type="primary" onClick={() => navigate('/login')} danger>

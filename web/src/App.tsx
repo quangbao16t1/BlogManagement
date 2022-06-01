@@ -28,14 +28,11 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
+          <Route path="/register" element={<Register />} />
           {!user
             ? <Route path="/login" element={<Login />} />
             : <Route path='/home' element={<Home />} />
           }
-
-          <Route path="/register" element={<Register />} />
-
-
         </Routes>
         <Footer />
       </BrowserRouter>

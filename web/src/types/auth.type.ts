@@ -1,3 +1,4 @@
+import { register } from './../features/Auth/authSlice';
 export interface AuthError {
     message: string
 }
@@ -14,9 +15,12 @@ export interface CurrentUser {
     fisrtName: string
     lastName: string
     email: string
+    gender: string
+    address: string
     phoneNumber: string
     roleId: number
 }
+
 export const initialState: AuthState = {
     isAuth: false,
     isLoading: false,
