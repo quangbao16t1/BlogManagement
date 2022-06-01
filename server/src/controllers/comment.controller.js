@@ -28,6 +28,7 @@ CommentController.getAllComments = async (req, res) => {
         RES.success(res, cmts, Message.success);
     } catch (error) {
         RES.notFound(res, error, Message.notFound);
+        // RES.notFound(res, error, Message.notFound);
     }
 }
 
