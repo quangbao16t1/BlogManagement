@@ -32,5 +32,6 @@ const BookmarkModel = (sequelize, Sequelize) => {
     });
 
     return Bookmarks;
+    // return Bookmarks
 }
 export default BookmarkModel;
