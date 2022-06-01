@@ -9,6 +9,6 @@ postRouter.delete('/post/:id', PostController.deletePost);
 postRouter.get('/post/:id', PostController.getPostById);
 postRouter.put('/post/:id', PostController.updatePost);
 postRouter.get('/post', PostController.getAllPosts);
-
+// postRouter.get('/post', PostController.getAllPosts);
 
 export default postRouter;
