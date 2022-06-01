@@ -4,9 +4,9 @@ import connectDB from "../models/index.js";
 const PostModel = connectDB.posts;
 const Op = connectDB.Sequelize.Op;
 
-const PostService = {};
+const PostRepo = {};
 
-PostService.getAllPosts = async () => {
+PostRepo.getAllPosts = async () => {
     return await PostModel.findAll({
         include: [{
             model: connectDB.users,
@@ -15,7 +15,7 @@ PostService.getAllPosts = async () => {
     });
 }
 
-PostService.getPostById = async (id) => {
+PostRepo.getPostById = async (id) => {
     return await PostModel.findOne({
         where: { id: id },
         include: [{
@@ -24,7 +24,7 @@ PostService.getPostById = async (id) => {
     })
 }
 
-PostService.updatePost = async (id, post) => {
+PostRepo.updatePost = async (id, post) => {
 
     const postUpdate = await PostModel.findOne({ where: { id: id } });
 
@@ -35,7 +35,7 @@ PostService.updatePost = async (id, post) => {
     await postUpdate.save();
 }
 
-PostService.deletePost = async (id) => {
+PostRepo.deletePost = async (id) => {
     const postDelete = await PostModel.findOne({ where: { id: id } });
 
     if (!postDelete) throw "Post not found!!!";
@@ -43,14 +43,14 @@ PostService.deletePost = async (id) => {
     return await PostModel.destroy({ where: { id: id } });
 }
 
-PostService.createPost = async (post) => {
+PostRepo.createPost = async (post) => {
     
     const postCreate = new PostModel(post);
 
     await postCreate.save();
 }
 
-PostService.searchPost = async (title) => {
+PostRepo.searchPost = async (title) => {
 
     const search = title ? { title: { [Op.like]: `%${title}%` } } : null;
     
@@ -62,4 +62,4 @@ PostService.searchPost = async (title) => {
     })
 }
 
-export default PostService;
+export default PostRepo;
