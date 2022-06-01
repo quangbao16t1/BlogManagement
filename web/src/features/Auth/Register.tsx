@@ -13,8 +13,8 @@ const Register = () => {
     // const dispatch = useAppDispatch();
 
     const handelSubmit = (value: any) => {
-   
-            console.log(value)
+
+        console.log(value)
 
     }
     const formItemLayout = {
@@ -218,15 +218,16 @@ const Register = () => {
                             </Col>
                         </Row>
                     </Form.Item>
+                    <div className="btn-register">
+                        <Button type="primary" htmlType="submit" >
+                            Register
+                        </Button>
+                        <Button type="primary" onClick={() => navigate('/login')} danger>
+                            Cancel
+                        </Button>
+                    </div>
                 </Form>
-                <div className="btn-register">
-                    <Button type="primary" htmlType="submit" onClick={() => handelSubmit}>
-                        Register
-                    </Button>
-                    <Button type="primary" onClick={() => navigate('/login')} danger>
-                        Cancel
-                    </Button>
-                </div>
+
             </div>
         </body>
     );
