@@ -10,10 +10,31 @@ import {
 } from '@ant-design/icons';
 import girlImg from './girl.jpg';
 import logo from './logo.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import StorageKeys from 'constants/storage-keys';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+    const navigate = useNavigate();
     const { Header } = Layout;
+    const [user, setUser] = useState();
+
+
+    const logout =async () => {
+        await localStorage.clear();
+        navigate('/login');
+    }
+
+    useEffect(() => {
+        const userString = localStorage.getItem(StorageKeys.user);
+        if (userString) {
+            const userss = (JSON.parse(userString));
+            setUser(userss);
+        }
+    }, [StorageKeys.user]);
+
+    console.log(user);
+
     const items = [
         {
             label: 'Trang Chủ',
@@ -25,11 +46,6 @@ const Header = () => {
             key: 'mail',
             icon: <MailOutlined />,
         },
-        // {
-        //     label: 'Hỏi Đáp',
-        //     key: 'app',
-        //     icon: <SnippetsOutlined />,
-        // },
         {
             label: 'Thảo Luận',
             key: 'SubMenu',
@@ -64,15 +80,7 @@ const Header = () => {
                     ],
                 },
             ],
-        },
-        // {
-        //     label: (
-        //         <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-        //             Navigation Four - Link
-        //         </a>
-        //     ),
-        //     key: 'alipay',
-        // },
+        }
     ];
     // const [current, setCurrent] = useState('mail');
 
@@ -97,22 +105,28 @@ const Header = () => {
                         // style={{color: "white"}}
                         />
                     </div>
-                    {/* <div className='account'>
-                        <p>Hi, UserName</p>
-                        <div className="avatar">
-                            <div className="avatar-img">
-                                <img src={girlImg} />
-                                <Button type='primary' className='logout'><i> <LogoutOutlined /> </i>Logout</Button>
-                            </div>
-                        </div>
-                    </div> */}
-
-                    <div className='btn-header'>
+                    {!user ? <div className='btn-header'>
                         <Space className='btn-header'>
-                            <Button type="primary">Sign up</Button>
-                            <Button type='primary'>Sign in</Button>
+                            <Button type="primary" onClick={() => navigate('/register')}>Sign up</Button>
+                            <Button type='primary' onClick={() => navigate('/login')}>Sign in</Button>
                         </Space>
                     </div>
+                        : <div className='account'>
+                            <p>Hi, {user['firstName']} </p>
+                            <div className="avatar">
+                                <div className="avatar-img">
+                                    <img src={girlImg} />
+                                    <Button
+                                        type='primary'
+                                        className='logout'
+                                        onClick={logout}
+                                    >
+                                        <i> <LogoutOutlined /> </i>
+                                        Logout
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>}
 
                 </Header>
             </Layout>

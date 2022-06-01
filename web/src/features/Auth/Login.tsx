@@ -7,15 +7,35 @@ import {
 } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 import './Login.css'
+import { useAppSelector, useAppDispatch } from 'app/hook';
+import { authSelector, login } from '../Auth/authSlice';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import StorageKeys from 'constants/storage-keys'
+
 
 const Login = () => {
-    const login = () => {
 
+    const navigate = useNavigate();
+    const { currentUser, isLoading, error, isAuth } = useAppSelector(authSelector);
+
+    const dispatch = useAppDispatch();
+
+    const sunmitt = async (values: any) => {
+        await dispatch(login(values));
     };
+
+    useEffect(() => { 
+        if(isAuth) {
+            localStorage.setItem(StorageKeys.user, JSON.stringify(currentUser));
+            navigate('/home');
+        }
+    }, [isAuth, currentUser])
+
 
     return (
         <body>
-            <div className="container">
+            <div className="login-container">
                 <h1>Login</h1>
                 <Form
                     name="formLogin"
@@ -23,7 +43,7 @@ const Login = () => {
                     initialValues={{
                         remember: true,
                     }}
-                    onFinish={login}
+                    onFinish={sunmitt}
                 >
                     <Form.Item
                         className="form-item"
@@ -39,7 +59,7 @@ const Login = () => {
                     </Form.Item>
                     <Form.Item
                         className="form-item"
-                        name="password"
+                        name="passwordHash"
                         rules={[
                             {
                                 required: true,
@@ -68,7 +88,7 @@ const Login = () => {
                         <Button type="primary" htmlType="submit" className="login-form-button">
                             Log in
                         </Button>
-                        <a href=""> Or register now!</a>
+                        <a href="/register"> Or register now!</a>
                     </Form.Item>
                 </Form>
                 <div className="iconGroup">
