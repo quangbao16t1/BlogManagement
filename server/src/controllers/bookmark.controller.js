@@ -23,10 +23,7 @@ BookmarkController.createBookmark = async (req, res) => {
 BookmarkController.getAllBookmarks = async (req, res) => {
     try {
         const bookmarks = await BookmarkRepo.getAllBookmarks;
-        // res.status(200).json({
-        //     success: true,
-        //     Bookmarks: bookmarks
-        // })
+
         RES.success(res, bookmarks, Message.success);
     } catch (error) {
         RES.notFound(res, error, Message.notFound);
@@ -37,10 +34,7 @@ BookmarkController.deleteBookmark = async (req, res) => {
     try {
         const id = req.params.id;
         const result = await BookmarkRepo.deleteBookmark(id);
-        // res.status(200).json({
-        //     success: true,
-        //     message: Message.delete,
-        // })
+
         RES.success(res, result, Message.delete);
     } catch (error) {
         RES.notFound(res, error, Message.notFound);
@@ -51,10 +45,7 @@ BookmarkController.getBookmarkById = async (req, res) => {
     try {
         const id = req.params.id;
         const result = await BookmarkRepo.getBookmarkById(id);
-        // res.status(200).json({
-        //     success: true,
-        //     Bookmark: result
-        // })
+
         RES.success(res, result, Message.success)
     } catch (error) {
         RES.notFound(res, error, Message.notFound);
@@ -73,10 +64,6 @@ BookmarkController.updateBookmark = async (req, res) => {
 
     await BookmarkRepo.updateBookmark(id, bookmarkUpdate)
         .then(() => {
-            // res.status(200).json({
-            //     success: true,
-            //     message: Message.update,
-            // })
             RES.updated(res, Message.update)
         })
         .catch((error) => {
