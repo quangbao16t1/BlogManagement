@@ -3,13 +3,17 @@ import authApi from 'api/auth'
 import userApi from 'api/user';
 import { AuthState, CurrentUser, initialState } from 'types/auth.type'
 import { AppThunk, RootState } from '../../app/store';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const register = (data: any): AppThunk => async (dispatch) => {
     try {
         const response = await authApi.register(data);
-        dispatch(setRegister(response.data));
-        console.log(response.data);
+        await dispatch(setRegister(response.data.result));
+        toast("Register successfully!!!");
+        console.log(response.data.result);
     } catch (error: any) {
+        toast("Email dose not exits");
         console.log(error)
     }
 }
@@ -26,6 +30,7 @@ export const login = (data: any): AppThunk => async (dispatch) => {
     }
 }
 
+
 // export const logout = (): AppThunk => async (dispatch) => {
 //     try {
 //         dispatch(setLogOut())
@@ -35,6 +40,8 @@ export const login = (data: any): AppThunk => async (dispatch) => {
 //         dispatch(setLoading(false))
 //     }
 // }
+
+
 
 export const authSlice = createSlice({
     name: 'auth',

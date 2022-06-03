@@ -10,11 +10,16 @@ import CommentView from './features/Comment/Comment';
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Home from 'features/Home/Home';
 import StorageKeys from 'constants/storage-keys';
+import {CurrentUser} from './types/auth.type'
+import { authSelector } from 'features/Auth/authencationSlice';
+import { useAppSelector } from 'app/hook';
+
+
 
 function App() {
 
   const [user, setUser] = useState();
-
+  const { currentUser } = useAppSelector(authSelector);
   useEffect(() => {
     const bbbbb = localStorage.getItem(StorageKeys.user);
     if (bbbbb) {
@@ -31,7 +36,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           {!user
             ? <Route path="/login" element={<Login />} />
-            : <Route path='/home' element={<Home />} />
+            : <Route path='/home' element= {<Home propss = {currentUser}  />} />
           }
         </Routes>
         <Footer />

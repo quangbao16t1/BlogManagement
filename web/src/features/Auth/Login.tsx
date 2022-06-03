@@ -8,10 +8,11 @@ import {
 import { Button, Checkbox, Form, Input } from "antd";
 import './Login.css'
 import { useAppSelector, useAppDispatch } from 'app/hook';
-import { authSelector, login } from '../Auth/authSlice';
+import { authSelector, login } from '../Auth/authencationSlice';
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import StorageKeys from 'constants/storage-keys'
+import { toast } from "react-toastify";
 
 
 const Login = () => {
@@ -22,15 +23,18 @@ const Login = () => {
     const dispatch = useAppDispatch();
 
     const sunmitt = async (values: any) => {
-        await dispatch(login(values));
+        await dispatch(login(values))
+        .then( () =>  {
+            navigate('/home')
+            toast('Login successfully!!!')
+        });
     };
 
-    useEffect(() => { 
-        if(isAuth) {
-            localStorage.setItem(StorageKeys.user, JSON.stringify(currentUser));
-            navigate('/home');
-        }
-    }, [isAuth, currentUser])
+    // useEffect(() => { 
+    //     if(isAuth) {
+    //         
+    //     }
+    // }, [isAuth, currentUser])
 
 
     return (

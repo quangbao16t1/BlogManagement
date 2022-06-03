@@ -10,11 +10,13 @@ const Register = () => {
     const navigate = useNavigate();
     const { Option } = Select;
 
-    // const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
 
     const handelSubmit = (value: any) => {
 
-        console.log(value)
+        dispatch(register(value));
+        toast("Register successfully!!!");
+        navigate('/login');
 
     }
     const formItemLayout = {

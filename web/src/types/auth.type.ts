@@ -1,13 +1,9 @@
-import { register } from './../features/Auth/authSlice';
-export interface AuthError {
-    message: string
-}
 
 export interface AuthState {
     isAuth: boolean
     currentUser?: CurrentUser
     isLoading: boolean
-    error: AuthError
+    error: string
 }
 
 export interface CurrentUser {
@@ -24,5 +20,5 @@ export interface CurrentUser {
 export const initialState: AuthState = {
     isAuth: false,
     isLoading: false,
-    error: {message: 'An Error occurred'},
+    error: "",
 }
