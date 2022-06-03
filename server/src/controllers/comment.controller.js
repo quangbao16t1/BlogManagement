@@ -1,6 +1,6 @@
 import Message from '../commons/message.js';
 import RES from '../commons/status.js';
-import CommentRepo from '../repositories/comment.repository.js';
+import CommentService from '../services/comment.service.js';
 
 const CommentController = {};
 
@@ -13,7 +13,7 @@ CommentController.createComment = async (req, res) => {
         publish: req.body.publish,
         createAt: Date.now(),
     }
-    await CommentRepo.createComment(cmt)
+    await CommentService.createComment(cmt)
         .then(() => {
             RES.created(res, cmt, Message.create);
         })
@@ -24,7 +24,7 @@ CommentController.createComment = async (req, res) => {
 
 CommentController.getAllComments = async (req, res) => {
     try {
-        const cmts = await CommentRepo.getAllComments;
+        const cmts = await CommentService.getAllComments();
         RES.success(res, cmts, Message.success);
     } catch (error) {
         RES.notFound(res, error, Message.notFound);
@@ -35,7 +35,7 @@ CommentController.getAllComments = async (req, res) => {
 CommentController.deleteComment = async (req, res) => {
     try {
         const id = req.params.id;
-        const result = await CommentRepo.deleteComment(id);
+        const result = await CommentService.deleteComment(id);
         RES.success(res, result, Message.delete);
     } catch (error) {
         RES.notFound(res, error, Message.notFound);
@@ -45,7 +45,7 @@ CommentController.deleteComment = async (req, res) => {
 CommentController.getCommentById = async (req, res) => {
     try {
         const id = req.params.id;
-        const result = await CommentRepo.getCommentById(id);
+        const result = await CommentService.getCommentById(id);
         RES.success(res, result, Message.success);
     } catch (error) {
         RES.notFound(res, error, Message.notFound);
@@ -64,7 +64,7 @@ CommentController.updateComment = async (req, res) => {
 
     const id = req.params.id;
 
-    await CommentRepo.updateComment(id, cmtUpdate)
+    await CommentService.updateComment(id, cmtUpdate)
         .then(() => {
             RES.updated(res, Message.update);
         })
@@ -73,12 +73,40 @@ CommentController.updateComment = async (req, res) => {
         })
 }
 
-CommentController.getCmtChildren = async (req, res) => {
+CommentController.getCmtParent = async (req, res) => {
     try {
         const id = req.params.parentId;
 
-        const result = await CommentRepo.getCmtChildren(id);
+        const result = await CommentService.getCmtByParent(id);
         RES.success(res, result, Message.success);
+    } catch (error) {
+        RES.notFound(res, error, Message.notFound);
+    }
+}
+
+CommentController.getCmtHasChildren = async (req, res) => {
+    try {
+
+        const result = await CommentService.getCmtHasChildren();
+
+        console.log(result)
+
+        RES.success(res, result, Message.success);
+
+    } catch (error) {
+        RES.notFound(res, error, Message.notFound);
+    }
+}
+
+CommentController.getCmtByPostId = async (req, res) => {
+    try {
+
+        const id = req.params.postId;
+
+        const result = await CommentService.getCmtByPostId(id);
+
+        RES.success(res, result, Message.success);
+
     } catch (error) {
         RES.notFound(res, error, Message.notFound);
     }

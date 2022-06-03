@@ -2,9 +2,9 @@ import connectDB from "../models/index.js";
 
 const CommentModel = connectDB.comments;
 
-const CommentService = {};
+const CommentRepo = {};
 
-CommentService.getAllComments = async () => {
+CommentRepo.getAllComments = async () => {
     return await CommentModel.findAll({
         include: [{
             model: connectDB.users
@@ -14,7 +14,7 @@ CommentService.getAllComments = async () => {
     });
 }
 
-CommentService.getCommentById = async (id) => {
+CommentRepo.getCommentById = async (id) => {
     return await CommentModel.findOne({
         where: { id: id },
         include: [{
@@ -25,7 +25,7 @@ CommentService.getCommentById = async (id) => {
     })
 }
 
-CommentService.updateCommnet = async (id, cmt) => {
+CommentRepo.updateCommnet = async (id, cmt) => {
 
     const commentUpdate = await CommentModel.findOne({ where: { id: id } });
 
@@ -36,7 +36,7 @@ CommentService.updateCommnet = async (id, cmt) => {
     await commentUpdate.save();
 }
 
-CommentService.deleteComment = async (id) => {
+CommentRepo.deleteComment = async (id) => {
     const commentDelete = await CommentModel.findOne({ where: { id: id } });
 
     if (!commentDelete) throw "Comment not found!!!";
@@ -44,14 +44,14 @@ CommentService.deleteComment = async (id) => {
     return await CommentModel.destroy({ where: { id: id } });
 }
 
-CommentService.createComment = async (cmt) => {
+CommentRepo.createComment = async (cmt) => {
 
     const commentCreate = new CommentModel(cmt);
 
     await commentCreate.save();
 }
 
-CommentService.getCmtChidren = async (parentId) => {
+CommentRepo.getCmtByParent = async (parentId) => {
     return await CommentModel.findAll({
         where: { parentId: parentId },
         include: [{
@@ -62,8 +62,8 @@ CommentService.getCmtChidren = async (parentId) => {
     })
 }
 
-CommentService.getCmtByPostId = async (postId) => {
-    const cmts = await CommentModel.findAll({
+CommentRepo.getCmtByPostId = async (postId) => {
+    return await CommentModel.findAll({
         where: { postId: postId },
         include: [{
             model: connectDB.users,
@@ -72,4 +72,14 @@ CommentService.getCmtByPostId = async (postId) => {
     })
 }
 
-export default CommentService;
+CommentRepo.getCmtHasChildren = async () => {
+    return await CommentModel.findAll({
+        include: [{
+            model: connectDB.comments,
+            as: 'children'
+        }]
+    })
+
+}
+
+export default CommentRepo;
