@@ -31,6 +31,7 @@ const PostModel = (sequelize, Sequelize) => {
         updateAt: {
             type: DataTypes.DATE,
             default: null
+            // default: null
         }
     }, {
         timestamps: false
