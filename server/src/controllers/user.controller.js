@@ -7,15 +7,8 @@ const UserController = {};
 UserController.getAllUsers = async (req, res) => {
     try {
         const users = await UserService.getAllUsers();
-        // res.status(200).json({
-        //     success: true,
-        //     Users: users
-        // })
         RES.success(res, users, Message.success);
     } catch (error) {
-        // res.status(500).json({
-        //     error: error.message
-        // })
         RES.internal(res, error, Message.notFound)
     }
 }
@@ -24,10 +17,6 @@ UserController.deleteUser = async (req, res) => {
     try {
         const id = req.params.id;
         const result = await UserService.deleteUser(id);
-        // res.status(200).json({
-        //     success: true,
-        //     message: Message.delete,
-        // }) 
         RES.success(res, result, Message.delete);
     } catch (error) {
         RES.notFound(res, error, Message.unDelete);
