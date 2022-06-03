@@ -3,7 +3,7 @@ import PostRepo from "../repositories/post.repository.js";
 
 const PostService = {};
 
-PostService.getAllPosts = PostRepo.getAllPosts();
+PostService.getAllPosts = () => PostRepo.getAllPosts();
 PostService.getPostById = (id) => PostRepo.getPostById(id);
 PostService.createPost = (post) => PostRepo.createPost(post);
 PostService.updatePost = (id, post) => PostRepo.updatePost(id, post);

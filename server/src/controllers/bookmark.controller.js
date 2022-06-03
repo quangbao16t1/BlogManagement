@@ -22,7 +22,7 @@ BookmarkController.createBookmark = async (req, res) => {
 
 BookmarkController.getAllBookmarks = async (req, res) => {
     try {
-        const bookmarks = await BookmarkRepo.getAllBookmarks;
+        const bookmarks = await BookmarkRepo.getAllBookmarks();
 
         RES.success(res, bookmarks, Message.success);
     } catch (error) {
