@@ -31,5 +31,6 @@ const RateModel = (sequelize, Sequelize) => {
         timestamps: false
     });
     return Rates;
+    // return Rates;
 }
 export default RateModel;

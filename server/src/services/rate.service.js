@@ -1,67 +1,17 @@
-import connectDB from "../models/index.js";
-
-const RateModel = connectDB.rates;
+import RateRepo from "../repositories/rate.repository.js";
 
 const RateService = {};
 
-RateService.getAllRates = async () => {
-    return await RateModel.findAll({
-        include: [{
-            model: connectDB.users
-        }, {
-            model: connectDB.posts
-        }]
-    });
-}
+RateService.getAllRates = RateRepo.getAllRates();
 
-RateService.getRateById = async (id) => {
-    return await RateModel.findOne({
-        where: { id: id },
-        include: [{
-            model: connectDB.users
-        }, {
-            model: connectDB.posts
-        }]
-    })
-}
+RateService.getRateById = (id) => RateRepo.getRateById(id);
 
-RateService.updateRate = async (id, rate) => {
+RateService.createRate = (rate) => RateRepo.createRate(rate);
 
-    const rateUpdate = await RateModel.findOne({ where: { id: id } });
+RateService.updateRate = (id, rate) => RateRepo.updateRate(id, rate);
 
-    if (!rateUpdate) throw "Rate not found!!!";
+RateService.deleteRate = (id) => RateRepo.deleteRate(id);
 
-    Object.assign(rateUpdate, rate);
-
-    await rateUpdate.save();
-}
-
-RateService.deleteRate = async (id) => {
-    const rateDelete = await RateModel.findOne({ where: { id: id } });
-
-    if (!rateDelete) throw "Rate not found!!!";
-
-    return await RateModel.destroy({ where: { id: id } });
-}
-
-RateService.createRate = async (rate) => {
-
-    const rateCreate = new RateModel(rate);
-
-    await rateCreate.save();
-}
-
-RateService.getRateByPostId = async (postId) => {
-    
-    const rates = await RateModel.findAll({ where: {postId: postId}});
-    
-    let sum = 0;
-    const result = rates.map((rate) => {
-        sum += rate.rate;
-    })
-
-    return sum/(rates.length);
-   
-}
+RateService.getRateByPostId = (postId) => RateRepo.getRateByPostId(postId);
 
 export default RateService;
