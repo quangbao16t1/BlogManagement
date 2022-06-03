@@ -5,11 +5,11 @@ import StorageKeys from 'constants/storage-keys'
 import { CurrentUser } from "types/auth.type";
 
 
-const Home = (props: CurrentUser) => {
+const Home = () => {
 
     const [user, setUser] = useState();
-    const userCu = props;
-    console.log(userCu);
+    // const userCu = props;
+    // console.log(userCu);
     useEffect(() => {
         const bbbbb = localStorage.getItem(StorageKeys.user);
         if(bbbbb) {

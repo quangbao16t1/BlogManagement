@@ -13,6 +13,7 @@ import StorageKeys from 'constants/storage-keys';
 import {CurrentUser} from './types/auth.type'
 import { authSelector } from 'features/Auth/authencationSlice';
 import { useAppSelector } from 'app/hook';
+import ProfilePage from 'features/Profjle/ProfilePage';
 
 
 
@@ -32,13 +33,14 @@ function App() {
     <div>
       <BrowserRouter>
         <Header />
-        <Routes>
+        {/* <Routes>
           <Route path="/register" element={<Register />} />
           {!user
             ? <Route path="/login" element={<Login />} />
-            : <Route path='/home' element= {<Home propss = {currentUser}  />} />
+            : <Route path='/home' element= {<Home   />} />
           }
-        </Routes>
+        </Routes> */}
+        <ProfilePage />
         <Footer />
       </BrowserRouter>
     </div>
