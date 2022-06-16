@@ -6,8 +6,11 @@ import PostModel from './post.model.js';
 import RateModel from './rate.model.js';
 import RoleModel from './role.model.js';
 import UserModel from './user.model.js';
+import dotenv from "dotenv";
 
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
+dotenv.config();
+
+const sequelize = new Sequelize(process.env.DATABASE, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
     // port: dbConfig.PORT,
     dialect: dbConfig.dialect,

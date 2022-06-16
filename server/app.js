@@ -9,6 +9,7 @@ import postRouter from "./src/routes/post.routes.js";
 import rateRouter from "./src/routes/rate.routes.js";
 import bookmarkRouter from "./src/routes/bookmark.routes.js";
 import commentRouter from "./src/routes/comment.routes.js";
+import cookie from 'cookie-parser';
 
 dotenv.config();
 
@@ -23,8 +24,6 @@ try {
        console.log(error);
 }
 
-
-
 const app = express();
 const port = process.env.PORT || 3133;
 
@@ -34,6 +33,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
        extended: true
 }));
+app.use(cookie());
 
 app.use('/', userRouter);
 app.use('/', postRouter);
